@@ -3,10 +3,12 @@
 #include <string>
 
 #include "./engine/renderer.hpp"
+#include "./engine/world.hpp"
 #include "./game/game.hpp"
 
 Renderer renderer;
 Game game;
+World world;
 
 void display () {
 	renderer.Display();
@@ -46,7 +48,7 @@ int main(int argc, char* argv[]) {
 	glutKeyboardUpFunc(keyboardUp);
 	glutSpecialUpFunc(specialKeysUp);
 	game.Log("Done.");
-  	
+
   	glutIdleFunc(update);
   	glutMainLoop();
 	return 0;

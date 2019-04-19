@@ -2,6 +2,7 @@
 #define _G_H
 
 #include "../engine/renderer.hpp"
+#include "../engine/world.hpp"
 
 #include <string>
 
@@ -24,6 +25,7 @@ class Game {
 	public:
 		Entity player;
 		Controls controls;
+		World world;
 		std::string logHistory [6];
 		void Init();
 		void Move(Renderer renderer);

@@ -91,17 +91,21 @@ void Game::Move(Renderer renderer) {
 }
 
 void Game::Draw(Renderer renderer) {
-	float ox = renderer.transform.x;
-	float oy = renderer.transform.y;
-	float oz = renderer.transform.z;
-
-	renderer.cube.Draw(ox + -2.0f, oy + -1.0f, oz + -2.0f, glm::vec3(0.0f,1.0f,1.0f));
-	renderer.cube.Draw(ox + 2.0f, oy + -1.0f, oz + -2.0f, glm::vec3(1.0f,0.0f,1.0f));
-	renderer.cube.Draw(ox + -2.0f, oy + -1.0f, oz + 2.0f, glm::vec3(0.0f,1.0f,0.0f));
-	renderer.cube.Draw(ox + 2.0f, oy + -1.0f, oz + 2.0f, glm::vec3(0.0f,0.0f,1.0f));
+	for (int x = 0; x < 3; ++x) {
+		for (int y = 0; y < 3; ++y) {
+			world.Draw(renderer, x, y);
+		}
+	}
 }
 
 void Game::Init() {
+	world.HeightGenerator.Set(1, 4, 6, 2, 12345);
+	for (int x = 0; x < 3; ++x) {
+		for (int y = 0; y < 3; ++y) {
+			world.Generate(x, y);
+		}
+	}
+	Log(std::to_string(world.chunks[0][0].x));
 	player = {
 		.pos = glm::vec3(0.0f, 0.0f, 0.0f),
 		.vel = glm::vec3(0.0f, 0.0f, 0.0f),
