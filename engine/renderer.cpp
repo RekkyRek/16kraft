@@ -6,6 +6,7 @@ void Renderer::InitWindow(char* name, int w, int h) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(w, h);
 	glutCreateWindow(name);
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 }
 
@@ -21,7 +22,7 @@ void Renderer::Display() {
 
 void Renderer::Transform(glm::vec3 pos, glm::vec2 rot) {
 	transform = pos;
-	
+
 	glRotatef( rot.x, 1.0, 0.0, 0.0 );
 	glRotatef( rot.y, 0.0, -1.0, 0.0 );
 	glRotatef( 0, 0.0, 0.0, 1.0 );

@@ -1,5 +1,6 @@
 #include "world.hpp"
 #include "./renderer.hpp"
+#include "./textureAtlas.hpp"
 
 #include <iostream>
 
@@ -11,7 +12,7 @@ void World::Generate(int chunkX, int chunkY) {
 	for (int x = 0; x < 16; ++x) {
 		for (int y = 0; y < 32; ++y) {
 			for (int z = 0; z < 16; ++z) {
-				Block block = { .type = 0 };
+				Block block = { .type = 0, .textureID = 0 };
 				float noise = HeightGenerator.GetHeight(((chunkX * 16) + x) / 16.0f, ((chunkY * 16) + z) / 16.0f) + 6.0f;
 				if(y < 3 || y < noise) { block.type = 1; }
 				chunk.blocks[x][y][z] = block;
@@ -22,7 +23,7 @@ void World::Generate(int chunkX, int chunkY) {
 	chunks[chunkX][chunkY] = chunk;
 }
 
-void World::Draw(Renderer renderer, int chunkX, int chunkY) {
+void World::Draw(Renderer renderer, TextureAtlas textureAtlas, int chunkX, int chunkY) {
 	float ox = renderer.transform.x;
 	float oy = renderer.transform.y;
 	float oz = renderer.transform.z;
@@ -35,8 +36,10 @@ void World::Draw(Renderer renderer, int chunkX, int chunkY) {
 					float absX = (chunk.x * 16) + x + ox;
 					float absY = y + oy;
 					float absZ = (chunk.y * 16) + z + oz;
-					if(chunk.blocks[x][y][z].type > 0) {
-						if (chunk.blocks[x][y+1][z].type != 1 || y == 32) { renderer.cube.DrawTopFace(absX, absY, absZ, glm::vec3(0.0f,1.0f,0.0f)); }
+					Block block = chunk.blocks[x][y][z];
+					if(block.type > 0) {
+						Texture texture = textureAtlas.textures[block.textureID];
+						if (chunk.blocks[x][y+1][z].type != 1 || y == 31) { renderer.cube.DrawTopFace(absX, absY, absZ, texture); }
 						if (chunk.blocks[x][y-1][z].type != 1 || y == 0) { renderer.cube.DrawBottomFace(absX, absY, absZ, glm::vec3(0.0f,0.4f,0.0f)); }
 						if (chunk.blocks[x+1][y][z].type != 1 || x == 15) { renderer.cube.DrawRightFace(absX, absY, absZ, glm::vec3(0.0f,0.7f,0.0f)); }
 						if (chunk.blocks[x-1][y][z].type != 1 || x == 0) { renderer.cube.DrawLeftFace(absX, absY, absZ, glm::vec3(0.0f,0.7f,0.0f)); }

@@ -90,18 +90,18 @@ void Game::Move(Renderer renderer) {
 	}
 }
 
-void Game::Draw(Renderer renderer) {
-	for (int x = 0; x < 3; ++x) {
-		for (int y = 0; y < 3; ++y) {
-			world.Draw(renderer, x, y);
+void Game::Draw(Renderer renderer, TextureAtlas textureAtlas) {
+	for (int x = 0; x < 4; ++x) {
+		for (int y = 0; y < 4; ++y) {
+			world.Draw(renderer, textureAtlas, x, y);
 		}
 	}
 }
 
 void Game::Init() {
 	world.HeightGenerator.Set(1, 4, 6, 2, 12345);
-	for (int x = 0; x < 3; ++x) {
-		for (int y = 0; y < 3; ++y) {
+	for (int x = 0; x < 4; ++x) {
+		for (int y = 0; y < 4; ++y) {
 			world.Generate(x, y);
 		}
 	}

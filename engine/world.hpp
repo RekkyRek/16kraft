@@ -3,9 +3,11 @@
 
 #include "./renderer.hpp"
 #include "./noise.hpp"
+#include "./textureAtlas.hpp"
 
 struct Block {
 	int type;
+	int textureID;
 };
 
 struct Chunk {
@@ -19,7 +21,7 @@ class World {
 		Chunk chunks[4][4];
 		PerlinNoise HeightGenerator;
 		void Generate(int x, int y);
-		void Draw(Renderer renderer, int x, int y);
+		void Draw(Renderer renderer, TextureAtlas textureAtlas, int x, int y);
 };
 
 #endif

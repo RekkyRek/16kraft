@@ -11,10 +11,12 @@
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
 
+#include "./textureAtlas.hpp"
+
 class Cube {
 	public:
 		void Draw(float x, float y, float z, glm::vec3 color);
-		void DrawTopFace(float x, float y, float z, glm::vec3 color);
+		void DrawTopFace(float x, float y, float z, Texture texture);
 		void DrawBottomFace(float x, float y, float z, glm::vec3 color);
 		void DrawLeftFace(float x, float y, float z, glm::vec3 color);
 		void DrawRightFace(float x, float y, float z, glm::vec3 color);

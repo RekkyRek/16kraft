@@ -3,6 +3,7 @@
 
 #include "../engine/renderer.hpp"
 #include "../engine/world.hpp"
+#include "../engine/textureAtlas.hpp"
 
 #include <string>
 
@@ -29,7 +30,7 @@ class Game {
 		std::string logHistory [6];
 		void Init();
 		void Move(Renderer renderer);
-		void Draw(Renderer renderer);
+		void Draw(Renderer renderer, TextureAtlas textureAtlas);
 		void DrawDebug(Renderer renderer);
 		void DrawLog(Renderer renderer);
 		void Log(std::string);

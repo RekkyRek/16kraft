@@ -4,17 +4,19 @@
 
 #include "./engine/renderer.hpp"
 #include "./engine/world.hpp"
+#include "./engine/textureAtlas.hpp"
 #include "./game/game.hpp"
 
 Renderer renderer;
 Game game;
 World world;
+TextureAtlas textureAtlas;
 
 void display () {
 	renderer.Display();
 	renderer.Transform(game.player.pos, game.player.rot);
 	game.Move(renderer);
-	game.Draw(renderer);
+	game.Draw(renderer, textureAtlas);
 	if(game.controls.keyF3) { game.DrawDebug(renderer); }
 	if(game.controls.keyF4) { game.DrawLog(renderer); }
 	renderer.Flush();
@@ -39,6 +41,9 @@ int main(int argc, char* argv[]) {
 	renderer.InitWindow("16kraft", 800, 600);
 
 	glutDisplayFunc(display);
+
+	game.Log("Loading Assets");
+	textureAtlas.Load("./assets/unknown.bin", 0);
 
 	game.Log("Setting up event hooks");
 	glutPassiveMotionFunc(mouse);
